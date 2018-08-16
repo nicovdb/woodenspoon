@@ -1,0 +1,23 @@
+<h1>Ola chico/a</h1>
+<p>Voilà les belles petites team auxquelles tu participes</p>
+<% @teams.each do |team| %>
+  <p> <%= link_to team.name, team_path(team) %> </p>
+<% end %>
+<p>choisis en une ou crée en une nouvelle</p>
+
+<%= form_for(@team) do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+  </div>
+
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
+
+
+
