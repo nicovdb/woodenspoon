@@ -16,7 +16,7 @@ class TeamsController < ApplicationController
       User.find(teamuser.user_id)
     end
 
-    @jokes = Joke.where(team_id: @team.id)
+    @jokes = Joke.where(team_id: @team.id).order(created_at: :desc)
 
     @user = User.new
     @joke = Joke.new

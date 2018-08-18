@@ -5,7 +5,11 @@
 <% else %>
   <p> Participants :
   <% @users.each do |user| %>
-    <p> <%= user.pseudo  %> </p>
+    <% if !@jokes.empty? && user.id == @jokes.first.user_id %>
+      <p><strong> <%= user.pseudo %> a la cuillère en bois</strong></p>
+    <% else %>
+        <p> <%= user.pseudo  %> </p>
+    <% end %>
   <% end %> </p>
   <p>+ Ajoute un participant</p>
 <% end %>
@@ -16,25 +20,29 @@
     <%= f.text_field :pseudo, class: 'form-control' %>
     <%= f.text_field :team, type: :hidden, value: params[:id]%>
   </div>
-  <%= f.submit class: 'btn btn-primary' %>
+  <%= f.submit "Ajoute un participant", class: 'btn btn-primary' %>
 <% end %>
 
 <p>La liste des citations en bois</p>
 <% @jokes.each do |joke| %>
-    <p> <%= User.find_by(id: joke.user_id).pseudo  %> : <%= joke.description %></p>
-  <% end %> </p>
+  <% if joke == @jokes.first %>
+    <p><strong> <%= User.find_by(id: joke.user_id).pseudo  %> : "<%= joke.description %>"</strong></p>
+  <% else %>
+    <p> <%= User.find_by(id: joke.user_id).pseudo  %> : "<%= joke.description %>"</p>
+  <% end %>
+<% end %> </p>
 
 <p> Une nouvelle citation mérite la cuillère en bois ? #balancetonpote</p>
 
 <%= form_for(@joke) do |f| %>
   <div class="form-group">
     <%= f.label :user_id %>
-    <%= f.text_field :user_id, class: 'form-control' %>
+    <%= f.collection_radio_buttons :user_id, @users, :id, :pseudo, class: 'form-control' %>
     <%= f.label :description %>
     <%= f.text_field :description, class: 'form-control' %>
     <%= f.text_field :team, type: :hidden, value: params[:id]%>
   </div>
-  <%= f.submit class: 'btn btn-primary' %>
+  <%= f.submit "Ajoute une joke", class: 'btn btn-primary' %>
 <% end %>
 
 
