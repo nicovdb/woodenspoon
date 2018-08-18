@@ -1,9 +1,14 @@
 <h1>Team <%= @team.name %></h1>
 <h4> <%= @team.description  %></h4>
-<p> Participants :
-<% @users.each do |user| %>
-  <p> <%= user.pseudo  %> </p>
-<% end %> </p>
+<% if @users.empty? %>
+  <p> Ajoute des participants </p>
+<% else %>
+  <p> Participants :
+  <% @users.each do |user| %>
+    <p> <%= user.pseudo  %> </p>
+  <% end %> </p>
+  <p>+ Ajoute un participant</p>
+<% end %>
 
 <%= form_for(@user) do |f| %>
   <div class="form-group">
@@ -11,7 +16,24 @@
     <%= f.text_field :pseudo, class: 'form-control' %>
     <%= f.text_field :team, type: :hidden, value: params[:id]%>
   </div>
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
 
+<p>La liste des citations en bois</p>
+<% @jokes.each do |joke| %>
+    <p> <%= User.find_by(id: joke.user_id).pseudo  %> : <%= joke.description %></p>
+  <% end %> </p>
+
+<p> Une nouvelle citation mérite la cuillère en bois ? #balancetonpote</p>
+
+<%= form_for(@joke) do |f| %>
+  <div class="form-group">
+    <%= f.label :user_id %>
+    <%= f.text_field :user_id, class: 'form-control' %>
+    <%= f.label :description %>
+    <%= f.text_field :description, class: 'form-control' %>
+    <%= f.text_field :team, type: :hidden, value: params[:id]%>
+  </div>
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>
 

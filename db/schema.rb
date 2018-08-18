@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 2018_08_15_130728) do
   create_table "jokes", force: :cascade do |t|
     t.string "description"
     t.bigint "user_id"
+    t.bigint "team_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_jokes_on_team_id"
     t.index ["user_id"], name: "index_jokes_on_user_id"
   end
 
@@ -54,6 +56,7 @@ ActiveRecord::Schema.define(version: 2018_08_15_130728) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "jokes", "teams"
   add_foreign_key "jokes", "users"
   add_foreign_key "likes", "jokes"
   add_foreign_key "likes", "users"

@@ -16,7 +16,10 @@ class TeamsController < ApplicationController
       User.find(teamuser.user_id)
     end
 
+    @jokes = Joke.where(team_id: @team.id)
+
     @user = User.new
+    @joke = Joke.new
   end
 
   private
