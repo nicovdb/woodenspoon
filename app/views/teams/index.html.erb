@@ -1,13 +1,13 @@
 <h1>Ola chico/a</h1>
 
 <% if @teams.empty? %>
-  <p> Crée toi une team</p>
+  <p> Crée toi une team ou rejoins en une avec son code</p>
 <% else %>
   <p>Voilà les belles petites team auxquelles tu participes</p>
   <% @teams.each do |team| %>
     <p> <%= link_to team.name, team_path(team) %> </p>
   <% end %>
-  <p>choisis en une ou crée en une nouvelle</p>
+  <p>choisis en une, crée en une nouvelle ou rejoins en une avec son code</p>
 <% end %>
 <%= form_for(@team) do |f| %>
   <div class="form-group">
@@ -23,5 +23,12 @@
   <%= f.submit class: 'btn btn-primary' %>
 <% end %>
 
+<%= form_for(@teamuser) do |f| %>
+   <div class="form-group">
+    <%= f.label :team_id %>
+    <%= f.text_field :team_id, class: 'form-control' %>
+  </div>
 
+  <%= f.submit class: 'btn btn-primary' %>
+<% end %>
 

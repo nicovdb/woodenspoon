@@ -1,11 +1,18 @@
+require 'securerandom'
+
 class TeamsController < ApplicationController
   def index
-    @teams = Team.all
+    @teams = current_user.teamusers.map do |teamuser|
+      Team.find(teamuser.team_id)
+    end
     @team = Team.new
+    @teamuser = Teamuser.new
   end
 
   def create
-    @team = Team.create(team_params)
+    @code = SecureRandom.urlsafe_base64(5)
+    @team = Team.create(name: team_params[:name], description: team_params[:description], code: @code)
+    Teamuser.create(user_id: current_user.id, team_id: @team.id)
     redirect_to team_path(@team)
   end
 
@@ -20,6 +27,7 @@ class TeamsController < ApplicationController
 
     @user = User.new
     @joke = Joke.new
+    @like = Like.new
   end
 
   private
