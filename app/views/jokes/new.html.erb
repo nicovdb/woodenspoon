@@ -1,0 +1,6 @@
+<%= simple_form_for(@joke) do |f| %>
+  <%= f.input :user_id, collection: @users, label: "Qui a dit quoi ? #balancetonpote" %>
+  <%= f.input :description %>
+  <%= f.input :team_id, as: :hidden, input_html: { value: params[:team_id] }%>
+  <%= f.submit "Ajoute une citation", class: 'btn btn-primary' %>
+<% end %>

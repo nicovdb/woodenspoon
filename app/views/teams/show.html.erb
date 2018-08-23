@@ -1,24 +1,22 @@
-<h1>Team <%= @team.name %></h1>
-<h4> <%= @team.description  %></h4>
-<p>Envoie ce code à tes amis pour qu'ils puissent rejoindre la team : <strong> <%= @team.code %></strong></p>
+<h1><%= @team.name.capitalize %></h1>
+<p>code : <strong> <%= @team.code %></strong></p>
+
 <% if @users.empty? %>
   <p> Ajoute des participants </p>
 <% else %>
   <p> Participants :
   <% @users.each do |user| %>
-    <% if !@jokes.empty? && user.id == @jokes.first.user_id %>
-      <p><strong> <%= user.pseudo %> (cuillère en bois)</strong></p>
+    <% if user == @users.last %>
+      <%= user.pseudo %>
     <% else %>
-        <p> <%= user.pseudo  %> </p>
+      <%= user.pseudo + ", " %>
     <% end %>
   <% end %> </p>
 <% end %>
 
-
-<p>La liste des citations en bois :</p>
 <% @jokes.each do |joke| %>
-  <% if joke == @jokes.first %>
-    <p><strong> <%= User.find_by(id: joke.user_id).pseudo  %> : "<%= joke.description %>"</strong>
+  <div class="card">
+    <h2> <%= User.find_by(id: joke.user_id).pseudo  %> : "<%= joke.description %>"
 
     <% @joke_likes = joke.likes.map do |like| %>
       <% like if like.joke_id == joke.id %>
@@ -27,46 +25,17 @@
 
     <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
     <% if @user_like.nil? %>
-      <%= form_for(@like) do |f| %>
-        <div class="form-group">
-          <%= f.text_field :joke, type: :hidden, value: joke.id%>
-          <%= f.text_field :team, type: :hidden, value: params[:id]%>
-        </div>
+
+      <%= simple_form_for(@like) do |f| %>
+        <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
+        <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
         <%= f.submit "Like", class: 'btn btn-danger' %>
       <% end %>
-    <% end %></p>
 
-  <% else %>
-    <p> <%= User.find_by(id: joke.user_id).pseudo  %> : "<%= joke.description %>"
-
-    <% @joke_likes = joke.likes.map do |like| %>
-      <% like if like.joke_id == joke.id %>
-    <% end  %>
-    <%= @joke_likes.size %> <%= @joke_likes.size == 1 ? "like" : "likes" %>
-
-    <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
-    <% if @user_like.nil? %>
-      <%= form_for(@like) do |f| %>
-        <div class="form-group">
-          <%= f.text_field :joke, type: :hidden, value: joke.id%>
-          <%= f.text_field :team, type: :hidden, value: params[:id]%>
-        </div>
-        <%= f.submit "Like", class: 'btn btn-danger' %>
-      <% end %>
-    <% end %></p>
-  <% end %>
+    <% end %></h2>
+  </div>
 <% end %> </p>
 
-<p> Une nouvelle citation mérite la cuillère en bois ? #balancetonpote</p>
+<%= button_to "+", new_joke_path, params: {team_id: params[:id]}, method: :get, class: "add-button" %>
 
-<%= form_for(@joke) do |f| %>
-  <div class="form-group">
-    <%= f.label :user_id %>
-    <%= f.collection_radio_buttons :user_id, @users, :id, :pseudo, class: 'form-control' %>
-    <%= f.label :description %>
-    <%= f.text_field :description, class: 'form-control' %>
-    <%= f.text_field :team, type: :hidden, value: params[:id]%>
-  </div>
-  <%= f.submit "Ajoute une joke", class: 'btn btn-primary' %>
-<% end %>
 

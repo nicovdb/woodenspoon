@@ -1,0 +1,27 @@
+.card {
+  padding: 5px;
+  background-size: cover !important;
+  background-position: center;
+  background-color: white;
+  position: relative;
+  border-bottom: 0.1px solid lightgrey;
+  text-decoration: none !important;
+  min-height: 45px;
+  z-index: 1 !important;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.card h2 {
+  color: black;
+  font-size: 15px;
+  margin: 0 0 6px 0;
+}
+
+.card p {
+  color: grey;
+  font-size: 12px;
+  margin-bottom: 0;
+}

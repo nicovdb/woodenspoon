@@ -5,8 +5,10 @@ class TeamsController < ApplicationController
     @teams = current_user.teamusers.map do |teamuser|
       Team.find(teamuser.team_id)
     end
+  end
+
+  def new
     @team = Team.new
-    @teamuser = Teamuser.new
   end
 
   def create
@@ -25,8 +27,6 @@ class TeamsController < ApplicationController
 
     @jokes = Joke.where(team_id: @team.id).order(created_at: :desc)
 
-    @user = User.new
-    @joke = Joke.new
     @like = Like.new
   end
 
