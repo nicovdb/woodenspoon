@@ -27,10 +27,6 @@
         <%= joke.description %>
       </div>
       <div class="joke-like">
-        <% @joke_likes = joke.likes.map do |like| %>
-          <% like if like.joke_id == joke.id %>
-        <% end  %>
-        <%= @joke_likes.size %> <i class="fas fa-heart"></i>
         <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
         <% if @user_like.nil? %>
 
@@ -40,12 +36,16 @@
             <%= f.submit "Like", class: 'btn btn-danger', id: "like-btn" %>
           <% end %>
         <% end %>
+        <% @joke_likes = joke.likes.map do |like| %>
+          <% like if like.joke_id == joke.id %>
+        <% end  %>
+        <%= @joke_likes.size %> <i class="fas fa-heart"></i>
       </div>
     </div>
   <% end %>
-
-  <%= button_to "+", new_joke_path, params: {team_id: params[:id]}, method: :get, class: "add-button" %>
-
+  <div class="add-button-parent">
+    <%= button_to "+", new_joke_path, params: {team_id: params[:id]}, method: :get, class: "add-button" %>
+  </div>
 </div>
 
 

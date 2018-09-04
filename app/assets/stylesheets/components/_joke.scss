@@ -30,6 +30,12 @@
 }
 
 .joke-like {
-  font-size: 13px;
+  font-size: 10px;
+  font-weight: lighter;
   color: rgba(0,0,0,0.9);
+  display: flex;
+  text-align: center;
+  justify-content: right;
+  align-items: center;
+
 }
