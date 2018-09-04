@@ -1,0 +1,35 @@
+.joke {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(220,224,244,0.4);
+}
+.joke:last-child {
+  border-bottom: none;
+}
+
+.joke-avatar {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}
+
+.joke-pseudo {
+  font-size: 10px;
+  font-weight: lighter;
+  color: rgba(0,0,0,0.9);
+}
+
+.joke-body {
+  flex-grow: 1;
+  color: rgba(0,0,0,0.9);
+  font-weight: lighter;
+  font-size: 13px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.joke-like {
+  font-size: 13px;
+  color: rgba(0,0,0,0.9);
+}

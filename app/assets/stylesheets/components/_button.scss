@@ -1,12 +1,16 @@
 .add-button {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%; /* the magic */
   text-align: center;
+  justify-content: center;
   color: white;
-  font-size: 40px;
-  text-transform: uppercase;
+  font-size: 30px;
   font-weight: 700;
-  margin: 0 auto 40px;
   background-color: #16a085;
+  margin-bottom: 5px;
+}
+
+#like-btn {
+font-size: 15px;
 }
