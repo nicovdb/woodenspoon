@@ -1,31 +1,27 @@
-.jokes {
-  min-height: calc(100vh - 140px);
+.teams {
+  min-height: calc(100vh - 70px);
 }
 
-.joke {
+.team {
   display: flex;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid rgba(220,224,244,0.4);
 }
 
-.joke:last-child {
+.team:last-child {
   border-bottom: none;
 }
 
-.joke-avatar {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-}
-
-.joke-pseudo {
-  font-size: 10px;
-  font-weight: lighter;
+.team-body h2 {
+  flex-grow: 1;
   color: rgba(0,0,0,0.9);
+  font-size: 13px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
-.joke-body {
+.team-body p {
   flex-grow: 1;
   color: rgba(0,0,0,0.9);
   font-weight: lighter;
@@ -34,7 +30,7 @@
   padding-right: 15px;
 }
 
-.joke-like {
+.team-like {
   font-size: 10px;
   font-weight: lighter;
   color: rgba(0,0,0,0.9);

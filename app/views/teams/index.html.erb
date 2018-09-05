@@ -1,6 +1,4 @@
-<% if @teams.empty? %>
-  <p> Crée toi une team ou rejoins en une avec son code</p>
-<% else %>
+<div class="teams">
   <% @teams.each do |team| %>
     <%= link_to team_path(team) do %>
       <div class="card">
@@ -9,9 +7,9 @@
       </div>
     <% end %>
   <% end %>
-<% end %>
-
-<%= link_to "+ Crée une équipe", new_team_path, class: 'btn btn-primary' %>
-
-<%= link_to "+ Rejoins une équipe", new_teamuser_path, class: 'btn btn-primary' %>
+</div>
+<div class="team-button-parent">
+  <%= link_to "+ Crée une équipe", new_team_path, class: 'add-team-button' %>
+  <%= link_to "+ Rejoins une équipe", new_teamuser_path, class: 'add-team-button' %>
+</div>
 
