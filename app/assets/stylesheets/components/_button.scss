@@ -1,22 +1,30 @@
 .add-button-parent {
   display: flex;
   justify-content: center;
-  // position: absolute;
-  // bottom: 0px;
-  // left: calc(50% - 25px);
+  position: sticky !important;
+  bottom: 0px;
+  height: 40px;
+  transition: all 0.3s ease;
+  background-color: rgb(50,50,50)
+}
+
+.add-button-parent p {
+  color: white;
 }
 
 .add-button {
   width: 50px;
   height: 50px;
-  border-radius: 50%; /* the magic */
+  border-radius: 50%;
   text-align: center;
   justify-content: center;
   color: white;
   font-size: 30px;
   font-weight: 700;
   background-color: #16a085;
-  margin-bottom: 5px;
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 25px)
 }
 
 #like-btn {

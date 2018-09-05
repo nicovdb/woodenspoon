@@ -8,6 +8,9 @@
   justify-content: left;
   color: white;
   flex-direction: column;
+  position: sticky !important;
+  top: 70px;
+  z-index: 10;
 }
 
 .teambar p {

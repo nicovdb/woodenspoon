@@ -1,3 +1,7 @@
+.jokes {
+  min-height: calc(100vh - 140px);
+}
+
 .joke {
   display: flex;
   align-items: center;
