@@ -1,4 +1,4 @@
-<div class="team">
+<div class="team-page">
   <div class="teambar">
     <h1><%= @team.name.capitalize %></h1>
     <p>Rejoindre l'équipe avec ce code : <strong> <%= @team.code %></strong></p>
@@ -29,24 +29,31 @@
         </div>
         <div class="joke-like">
           <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
-          <% if @user_like.nil? %>
 
-            <%= simple_form_for(@like) do |f| %>
-              <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
-              <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
-              <%= f.submit "Like", class: 'btn btn-danger', id: "like-btn" %>
-            <% end %>
+          <% if @user_like.nil? %>
+            <div id="heart-btn">
+              <%= simple_form_for(@like, remote: true) do |f| %>
+                <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
+                <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
+                <button type="submit"><i class="fas fa-heart"></i></button>
+              <% end %>
+            </div>
+
+            <div id="like-nb">
+              <%= joke.likes.count %>
+            </div>
+
+          <% else %>
+
+            <i class="fas fa-heart heart-red"></i> <%= joke.likes.size %>
           <% end %>
-          <% @joke_likes = joke.likes.map do |like| %>
-            <% like if like.joke_id == joke.id %>
-          <% end  %>
-          <%= @joke_likes.size %> <i class="fas fa-heart"></i>
+
         </div>
       </div>
     <% end %>
   </div>
-  <div class="add-button-parent">
-    <%= button_to "+", new_joke_path, params: {team_id: params[:id]}, method: :get, class: "add-button" %>
+  <div class="joke-button-parent">
+    <%= button_to "+", new_joke_path, params: {team_id: params[:id]}, method: :get, class: "add-joke-button" %>
   </div>
 </div>
 

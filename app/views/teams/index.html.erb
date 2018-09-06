@@ -1,15 +1,27 @@
-<div class="teams">
-  <% @teams.each do |team| %>
-    <%= link_to team_path(team) do %>
-      <div class="card">
-        <h2> <%= team.name  %> </h2>
-        <p> <%= team.description %> </p>
+<div class="teams-page">
+  <div class="jokes-bis">
+    <% @teams.each do |team| %>
+      <div class="joke">
+        <%= link_to team_path(team) do %>
+          <div class="joke-body">
+            <div class="team-name">
+              <%= team.name %>
+            </div>
+            <div class="team-description">
+              <%= team.description %>
+            </div>
+          </div>
+        <% end %>
       </div>
     <% end %>
-  <% end %>
+  </div>
+
+  <div class="team-button-parent">
+    <%= link_to "+ Crée une équipe", new_team_path, class: 'add-team-button' %>
+    <%= link_to "+ Rejoins une équipe", new_teamuser_path, class: 'join-team-button' %>
+  </div>
+
 </div>
-<div class="team-button-parent">
-  <%= link_to "+ Crée une équipe", new_team_path, class: 'add-team-button' %>
-  <%= link_to "+ Rejoins une équipe", new_teamuser_path, class: 'add-team-button' %>
-</div>
+
+
 

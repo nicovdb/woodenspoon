@@ -5,8 +5,18 @@ class LikesController < ApplicationController
 
   def create
     @team = Team.find(like_params[:team])
-    @like = Like.create(joke_id: like_params[:joke], user_id: current_user.id)
-    redirect_to team_path(@team)
+    @like = Like.new(joke_id: like_params[:joke], user_id: current_user.id)
+    if @like.save
+      respond_to do |format|
+        format.html {redirect_to team_path(@team)}
+        format.js
+      end
+    else
+      respond_to do |format|
+        format.html {render "teams/show"}
+        format.js
+      end
+    end
   end
 
   private
