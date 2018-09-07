@@ -2,15 +2,12 @@
   min-height: calc(100vh - 200px);
 }
 
-.jokes-bis {
-  min-height: calc(100vh - 130px);
-}
-
 .joke {
   display: flex;
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid rgba(220,224,244,0.4);
+  text-decoration: none;
 }
 
 .joke:last-child {
@@ -48,20 +45,4 @@
   align-items: center;
 }
 
-.joke-body {
-  flex-grow: 1;
-  color: rgba(0,0,0,0.9);
-  padding-left: 15px;
-  padding-right: 15px;
-}
 
-.team-name {
-  font-size: 13px;
-  font-weight: normal;
-}
-
-.team-description {
-  font-size: 10px;
-  font-weight: lighter;
-  padding-left: 5px;
-}

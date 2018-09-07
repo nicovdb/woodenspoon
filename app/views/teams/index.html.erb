@@ -1,9 +1,9 @@
 <div class="teams-page">
-  <div class="jokes-bis">
+  <div class="teams">
     <% @teams.each do |team| %>
-      <div class="joke">
-        <%= link_to team_path(team) do %>
-          <div class="joke-body">
+      <%= link_to team_path(team) do %>
+        <div class="team">
+          <div class="team-body">
             <div class="team-name">
               <%= team.name %>
             </div>
@@ -11,8 +11,22 @@
               <%= team.description %>
             </div>
           </div>
-        <% end %>
-      </div>
+          <% if !team.jokes.empty? %>
+            <div class="golden-spoon">
+              <% @joke_likes = team.jokes.map do |joke| %>
+                <% joke.likes.count %>
+              <% end  %>
+              <% @golden_joke = @joke_likes.index { |x| x == @joke_likes.max } %>
+              <% @golden_user =  team.jokes[@golden_joke].user %>
+              <div class="golden-user">
+                <p> <%= @golden_user.pseudo %> </p>
+                <%= cl_image_tag @golden_user.photo, class:"joke-avatar" %>
+              </div>
+              <h3> La cuillère en <strong> OR </strong></p>
+            </div>
+          <% end  %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 

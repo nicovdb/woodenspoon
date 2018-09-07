@@ -1,0 +1,54 @@
+.teams {
+  min-height: calc(100vh - 130px);
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid rgba(220,224,244,0.4);
+  text-decoration: none;
+}
+
+.team-body {
+  flex-grow: 1;
+  color: rgba(0,0,0,0.9);
+  font-weight: lighter;
+  font-size: 13px;
+}
+
+.team-name {
+  font-size: 13px;
+  font-weight: normal;
+}
+
+.team-description {
+  font-size: 10px;
+  font-weight: lighter;
+}
+
+.golden-spoon {
+  color: rgba(0,0,0,0.9);
+}
+
+.golden-spoon p {
+  font-size: 10px;
+  font-weight: lighter;
+  margin: 0;
+  padding-right: 5px;
+}
+
+.golden-spoon h3 {
+  font-size: 10px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.golden-user {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-bottom: 5px;
+}
+
+

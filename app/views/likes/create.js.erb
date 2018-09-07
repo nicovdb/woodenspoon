@@ -1,4 +1,8 @@
-var heart = document.getElementById("heart-btn");
+var heart = document.getElementById("heart-btn-<%= @joke.id %>");
 heart.innerHTML = '<%= j render "like" %>';
+
+
+var likeCount = document.getElementById("like-nb-<%= @joke.id %>");
+likeCount.innerHTML = '<%= @likes_count %>';
 
 

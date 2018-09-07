@@ -2,9 +2,7 @@ require 'securerandom'
 
 class TeamsController < ApplicationController
   def index
-    @teams = current_user.teamusers.map do |teamuser|
-      Team.find(teamuser.team_id)
-    end
+    @teams = current_user.teams
   end
 
   def new
@@ -20,13 +18,8 @@ class TeamsController < ApplicationController
 
   def show
     @team = Team.find(params[:id])
-
-    @users = @team.teamusers.map do |teamuser|
-      User.find(teamuser.user_id)
-    end
-
-    @jokes = Joke.where(team_id: @team.id).order(created_at: :desc)
-
+    @users = @team.users
+    @jokes = @team.jokes.reverse
     @like = Like.new
   end
 

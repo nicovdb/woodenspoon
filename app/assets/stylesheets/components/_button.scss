@@ -18,11 +18,15 @@
   justify-content: center;
   color: white;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: normal;
   background-color: #16a085;
   position: absolute;
   bottom: 20px;
   left: calc(50% - 25px)
+}
+
+.add-joke-button:hover {
+  color: white;
 }
 
 .team-button-parent {
@@ -44,11 +48,15 @@
   align-items: center;
   color: white;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: normal;
   background-color: #16a085;
   position: absolute;
   bottom: 20px;
   left: 15%;
+}
+
+.add-team-button:hover {
+  color: white;
 }
 
 .join-team-button {
@@ -62,14 +70,16 @@
   align-items: center;
   color: white;
   font-size: 13px;
-  font-weight: 700;
+  font-weight: normal;
   background-color: #16a085;
   position: absolute;
   bottom: 20px;
   right: 15%;
 }
 
-
+.join-team-button:hover {
+  color: white;
+}
 
 #like-btn {
 font-size: 10px;
@@ -80,5 +90,11 @@ button {
 }
 
 .heart-red {
-  color:red;
+  color: #fe4a49;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+.button_to {
+  border-style: dotted !important;
 }
