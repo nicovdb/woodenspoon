@@ -10,10 +10,6 @@
   text-decoration: none;
 }
 
-.joke:last-child {
-  border-bottom: none;
-}
-
 .joke-avatar {
   height: 30px;
   width: 30px;
@@ -21,7 +17,7 @@
 }
 
 .joke-pseudo {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: lighter;
   color: rgba(0,0,0,0.9);
 }
@@ -30,13 +26,13 @@
   flex-grow: 1;
   color: rgba(0,0,0,0.9);
   font-weight: lighter;
-  font-size: 13px;
+  font-size: 15px;
   padding-left: 15px;
   padding-right: 15px;
 }
 
 .joke-like {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: lighter;
   color: rgba(0,0,0,0.9);
   display: flex;
