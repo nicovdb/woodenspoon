@@ -1,0 +1,9 @@
+<div class="container">
+  <%= form_for(@teamuser) do |f| %>
+     <div class="form-group">
+      <%= f.label :team_id, "Code de l'équipe" %>
+      <%= f.text_field :team_id, placeholder: "ex: Gy6KFFs", class: 'form-control' %>
+    </div>
+    <%= f.submit "Rejoins l'équipe", class: 'btn btn-success' %>
+  <% end %>
+</div>
