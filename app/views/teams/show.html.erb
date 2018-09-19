@@ -1,27 +1,35 @@
 <div class="team-page">
   <div class="teambar">
-    <h1><%= @team.name.capitalize %></h1>
-    <p>Invite tes amis avec ce code : <strong> <%= @team.code %></strong></p>
+    <div class="back">
+      <%= link_to teams_path do  %>
+        <i class="fas fa-arrow-left"></i>
+      <% end %>
+    </div>
+    <div>
+      <h1><%= @team.name.capitalize %></h1>
+      <p>Invite tes amis avec ce code : <strong> <%= @team.code %></strong></p>
 
-    <% if !@users.empty? %>
-      <p> <% @users.each do |user| %>
-        <% if user == @users.last %>
-          <%= user.pseudo.capitalize %>
+      <p> <% @teamusers.each do |user| %>
+        <% if user == @teamusers.last %>
+          <%= user.teamuser_pseudo.capitalize %>
         <% else %>
-          <%= user.pseudo.capitalize + ", " %>
+          <%= user.teamuser_pseudo.capitalize + ", " %>
         <% end %>
       <% end %> </p>
-    <% end %>
+      <p class="link-to"> <%= link_to "+ Ajouter des participants", new_teamuser_path(team_id: @team.id) %> </p>
+    </div>
   </div>
 
   <div class="jokes">
     <% @jokes.each do |joke| %>
       <div class="joke">
-        <% user = User.find_by(id: joke.user_id) %>
-        <div>
-          <%= cl_image_tag user.photo, class:"joke-avatar" %>
+        <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
+        <div class="joke-person">
+          <% if !teamuser.user_id.nil? %>
+            <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
+          <% end %>
           <div class="joke-pseudo">
-            <%= user.pseudo %>
+            <%= teamuser.teamuser_pseudo %>
           </div>
         </div>
         <div class="joke-body">

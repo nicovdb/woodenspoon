@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   resources :teams, only: [:index, :new, :show, :create]
   resources :users, only: [:new, :create]
   resources :jokes, only: [:new, :create]
-  resources :teamusers, only: [:new, :create]
+  resources :teamusers, only: [:new, :create, :edit, :update]
   resources :likes, only: [:new, :create]
+  get '/find', to: 'teams#find', as: 'find_team'
+  get '/found', to: 'teams#found', as: 'found_team'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
+

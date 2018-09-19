@@ -1,0 +1,9 @@
+<div class="container">
+  <h1> <%= Team.find(params[:id]).name  %> </h1>
+  <%= simple_form_for(@teamuser, url: teamuser_path, method: :patch) do |f| %>
+    <%= f.input :teamuser_pseudo, collection: @teamusers, label: "Qui es-tu ?" %>
+    <%= f.input :team_id, as: :hidden, input_html: { value: params[:id] }%>
+    <%= f.submit "Rejoins l'équipe", class: 'btn btn-success' %>
+  <% end %>
+</div>
+

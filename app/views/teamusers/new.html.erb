@@ -1,9 +1,7 @@
 <div class="container">
-  <%= form_for(@teamuser) do |f| %>
-     <div class="form-group">
-      <%= f.label :team_id, "Code de l'équipe" %>
-      <%= f.text_field :team_id, placeholder: "ex: Gy6KFFs", class: 'form-control' %>
-    </div>
-    <%= f.submit "Rejoins l'équipe", class: 'btn btn-success' %>
+  <%= simple_form_for(@teamuser) do |f| %>
+    <%= f.input :teamuser_pseudo, label:"Nom du participant" %>
+    <%= f.input :team_id, as: :hidden, input_html: {value: params[:team_id]} %>
+    <%= f.submit "Ajouter", class: 'btn btn-success' %>
   <% end %>
 </div>

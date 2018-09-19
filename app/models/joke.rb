@@ -1,4 +1,4 @@
 class Joke < ApplicationRecord
-  belongs_to :user
+  belongs_to :teamuser
   has_many :likes
 end
