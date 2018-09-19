@@ -17,10 +17,12 @@
                 <% joke.likes.count %>
               <% end  %>
               <% @golden_joke = @joke_likes.index { |x| x == @joke_likes.max } %>
-              <% @golden_user =  team.jokes[@golden_joke].user %>
+              <% @golden_teamuser =  team.jokes[@golden_joke].teamuser %>
               <div class="golden-user">
-                <p> <%= @golden_user.pseudo %> </p>
-                <%= cl_image_tag @golden_user.photo, class:"joke-avatar" %>
+                <p> <%= @golden_teamuser.teamuser_pseudo %> </p>
+                <% if !@golden_teamuser.user.nil? %>
+                  <%= cl_image_tag @golden_teamuser.user.photo, class:"joke-avatar" %>
+                <% end %>
               </div>
               <h3> La cuillère en <strong> OR </strong></p>
             </div>
@@ -32,7 +34,7 @@
 
   <div class="team-button-parent">
     <%= link_to "+ Crée une équipe", new_team_path, class: 'add-team-button' %>
-    <%= link_to "+ Rejoins une équipe", new_teamuser_path, class: 'join-team-button' %>
+    <%= link_to "+ Rejoins une équipe", find_team_path, class: 'join-team-button' %>
   </div>
 
 </div>

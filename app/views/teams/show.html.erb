@@ -9,27 +9,27 @@
       <h1><%= @team.name.capitalize %></h1>
       <p>Invite tes amis avec ce code : <strong> <%= @team.code %></strong></p>
 
-      <% if !@teamusers.empty? %>
-        <p> <% @teamusers.each do |user| %>
-          <% if user == @teamusers.last %>
-            <%= user.teamuser_pseudo.capitalize %>
-          <% else %>
-            <%= user.teamuser_pseudo.capitalize + ", " %>
-          <% end %>
-        <% end %> </p>
-        <p> <%= link_to "+ Ajouter des participants", new_teamuser_path(team_id: @team.id) %> </p>
-      <% end %>
+      <p> <% @teamusers.each do |user| %>
+        <% if user == @teamusers.last %>
+          <%= user.teamuser_pseudo.capitalize %>
+        <% else %>
+          <%= user.teamuser_pseudo.capitalize + ", " %>
+        <% end %>
+      <% end %> </p>
+      <p class="link-to"> <%= link_to "+ Ajouter des participants", new_teamuser_path(team_id: @team.id) %> </p>
     </div>
   </div>
 
   <div class="jokes">
     <% @jokes.each do |joke| %>
       <div class="joke">
-        <% user = User.find_by(id: joke.user_id) %>
+        <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
         <div class="joke-person">
-          <%= cl_image_tag user.photo, class:"joke-avatar" %>
+          <% if !teamuser.user_id.nil? %>
+            <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
+          <% end %>
           <div class="joke-pseudo">
-            <%= user.pseudo %>
+            <%= teamuser.teamuser_pseudo %>
           </div>
         </div>
         <div class="joke-body">

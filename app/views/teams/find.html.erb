@@ -1,0 +1,7 @@
+<div class="container">
+  <%= simple_form_for(@team, url: found_team_path, method: :get) do |f| %>
+    <%= f.input :code, label: "Code de l'équipe", placeholder: "ex: Gy6KFFs" %>
+    <%= f.submit "Rejoins l'équipe", class: 'btn btn-success'  %>
+  <% end %>
+</div>
+

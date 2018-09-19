@@ -24,10 +24,20 @@ class TeamsController < ApplicationController
     @like = Like.new
   end
 
+  def find
+    @team = Team.new
+  end
+
+
+  def found
+    @team = Team.find_by(code: team_params[:code].strip)
+    redirect_to edit_teamuser_path(@team)
+  end
+
   private
 
   def team_params
-    params.require(:team).permit(:name, :description)
+    params.require(:team).permit(:name, :description, :code)
   end
 
 end

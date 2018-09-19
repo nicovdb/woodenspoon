@@ -2,6 +2,6 @@
   <%= simple_form_for(@teamuser) do |f| %>
     <%= f.input :teamuser_pseudo, label:"Nom du participant" %>
     <%= f.input :team_id, as: :hidden, input_html: {value: params[:team_id]} %>
-    <%= f.button :submit, label: "Ajouter", class: 'btn btn-success' %>
+    <%= f.submit "Ajouter", class: 'btn btn-success' %>
   <% end %>
 </div>
