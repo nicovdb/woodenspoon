@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :likes, only: [:new, :create]
   get '/find', to: 'teams#find', as: 'find_team'
   get '/found', to: 'teams#found', as: 'found_team'
+  get '/create-teamuser', to: 'teamusers#create_with_user_id', as: 'create_teamuser'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 

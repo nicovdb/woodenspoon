@@ -8,6 +8,12 @@ class TeamusersController < ApplicationController
     redirect_to team_path(teamuser_params[:team_id])
   end
 
+  def create_with_user_id
+    @teamuser = Teamuser.new
+    Teamuser.create(teamuser_pseudo: teamuser_params[:teamuser_pseudo], team_id: teamuser_params[:team_id], user_id: current_user.id)
+    redirect_to team_path(teamuser_params[:team_id])
+  end
+
   def edit
     @team = Team.find(params[:id])
     @teamusers = @team.teamusers.map do |teamuser|
