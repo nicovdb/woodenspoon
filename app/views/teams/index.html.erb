@@ -22,6 +22,8 @@
                 <p> <%= @golden_teamuser.teamuser_pseudo %> </p>
                 <% if !@golden_teamuser.user.nil? %>
                   <%= cl_image_tag @golden_teamuser.user.photo, class:"joke-avatar" %>
+                <% else %>
+                  <%= image_tag "wooden-user", class:"joke-avatar" %>
                 <% end %>
               </div>
               <h3> La cuillère en <strong> OR </strong></p>

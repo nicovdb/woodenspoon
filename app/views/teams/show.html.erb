@@ -20,49 +20,71 @@
     </div>
   </div>
 
-  <div class="jokes">
-    <% @jokes.each do |joke| %>
-      <div class="joke">
-        <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
-        <div class="joke-person">
-          <% if !teamuser.user_id.nil? %>
-            <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
-          <% end %>
-          <div class="joke-pseudo">
-            <%= teamuser.teamuser_pseudo %>
-          </div>
-        </div>
-        <div class="joke-body">
-          <%= joke.description %>
-        </div>
-        <div class="joke-like">
-          <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item active">
+      <a class="nav-link active" id="spoons-tab" data-toggle="tab" href="#spoons" role="tab" aria-controls="spoons" aria-selected="true" aria-expanded="true">Wooden Spoons</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="best-tab" data-toggle="tab" href="#best" role="tab" aria-controls="best" aria-selected="false">Best Of</a>
+    </li>
+  </ul>
 
-          <% if @user_like.nil? %>
-            <div id="heart-btn-<%= joke.id %>">
-              <%= simple_form_for(@like, remote: true) do |f| %>
-                <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
-                <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
-                <button type="submit"><i class="fas fa-heart"></i></button>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active in" id="spoons" role="tabpanel" aria-labelledby="spoons-tab">
+      <div class="jokes">
+        <% @jokes.each do |joke| %>
+          <div class="joke">
+            <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
+            <div class="joke-person">
+              <% if !teamuser.user_id.nil? %>
+                <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
+              <% else %>
+                <%= image_tag "wooden-user", class:"joke-avatar" %>
               <% end %>
+              <div class="joke-pseudo">
+                <%= teamuser.teamuser_pseudo %>
+              </div>
             </div>
-
-            <div id="like-nb-<%= joke.id %>">
-              <%= joke.likes.count %>
+            <div class="joke-body">
+              <%= joke.description %>
             </div>
+            <div class="joke-like">
+              <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
 
-          <% else %>
+              <% if @user_like.nil? %>
+                <div id="heart-btn-<%= joke.id %>">
+                  <%= simple_form_for(@like, remote: true) do |f| %>
+                    <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
+                    <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
+                    <button type="submit"><i class="fas fa-heart"></i></button>
+                  <% end %>
+                </div>
 
-            <i class="fas fa-heart heart-red"></i> <%= joke.likes.size %>
-          <% end %>
+                <div id="like-nb-<%= joke.id %>">
+                  <%= joke.likes.count %>
+                </div>
 
-        </div>
+              <% else %>
+
+                <i class="fas fa-heart heart-red"></i> <%= joke.likes.size %>
+              <% end %>
+
+            </div>
+          </div>
+        <% end %>
       </div>
-    <% end %>
+      <div class="joke-button-parent">
+        <%= link_to "+", new_joke_path(params: {team_id: params[:id]}), method: :get, class: "add-joke-button" %>
+      </div>
+    </div>
+
+
+    <div class="tab-pane fade" id="best" role="tabpanel" aria-labelledby="best-tab">
+      <h3>Ici le Best Of à venir !</h3>
+    </div>
+
   </div>
-  <div class="joke-button-parent">
-    <%= link_to "+", new_joke_path(params: {team_id: params[:id]}), method: :get, class: "add-joke-button" %>
-  </div>
+
 </div>
 
 

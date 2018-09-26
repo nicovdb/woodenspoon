@@ -21,11 +21,13 @@
   height: 30px;
   width: 30px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .joke-pseudo {
   font-size: 12px;
   font-weight: lighter;
+  text-align: center;
   color: rgba(0,0,0,0.9);
 }
 
