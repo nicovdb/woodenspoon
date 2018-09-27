@@ -1,13 +1,41 @@
 .team-page {
-  li {
-    font-size: 17px;
-    .active {
-      background-color : #16A085 !important;
-      color: white !important;
-    }
+  .active {
+    box-shadow: none;
     a {
-      color: #16A085;
+      background-color : #F4F4F4 !important;
+      color: #16A085 !important;
+      border-radius: 4px 4px 0 0;
     }
   }
+
+  li {
+    box-shadow: inset 3px -4px 10px rgba(0,0,0,0.2);
+    a {
+      font-size: 17px;
+      background-color : #16A085;
+      color: white;
+      &:hover {
+        background-color : #16A085;
+        color: white;
+        border-color: #16A085;
+      }
+    }
+  }
+
+  #myTab {
+    display: flex;
+    justify-content: space-between;
+    background-color : #16A085;
+  }
+
+  .nav-item {
+    flex: 1;
+    text-align: center;
+  }
+
+  .nav-link {
+    margin: 0;
+  }
 }
+
 

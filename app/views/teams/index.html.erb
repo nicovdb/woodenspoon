@@ -19,14 +19,16 @@
               <% @golden_joke = @joke_likes.index { |x| x == @joke_likes.max } %>
               <% @golden_teamuser =  team.jokes[@golden_joke].teamuser %>
               <div class="golden-user">
+                <div class="d-flex">
+                  <% if !@golden_teamuser.user.nil? %>
+                    <%= cl_image_tag @golden_teamuser.user.photo, class:"joke-avatar" %>
+                  <% else %>
+                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                  <% end %>
+                  <i class="fas fa-utensil-spoon golden"></i>
+                </div>
                 <p> <%= @golden_teamuser.teamuser_pseudo %> </p>
-                <% if !@golden_teamuser.user.nil? %>
-                  <%= cl_image_tag @golden_teamuser.user.photo, class:"joke-avatar" %>
-                <% else %>
-                  <%= image_tag "wooden-user", class:"joke-avatar" %>
-                <% end %>
               </div>
-              <h3> La cuillère en <strong> OR </strong></p>
             </div>
           <% end  %>
         </div>

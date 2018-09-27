@@ -22,7 +22,7 @@
 
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item active">
-      <a class="nav-link active" id="spoons-tab" data-toggle="tab" href="#spoons" role="tab" aria-controls="spoons" aria-selected="true" aria-expanded="true">Wooden Spoons</a>
+      <a class="nav-link" id="spoons-tab" data-toggle="tab" href="#spoons" role="tab" aria-controls="spoons" aria-selected="true" aria-expanded="true">Spoons</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" id="best-tab" data-toggle="tab" href="#best" role="tab" aria-controls="best" aria-selected="false">Best Of</a>
@@ -73,16 +73,44 @@
           </div>
         <% end %>
       </div>
-      <div class="joke-button-parent">
-        <%= link_to "+", new_joke_path(params: {team_id: params[:id]}), method: :get, class: "add-joke-button" %>
+    </div>
+
+    <div class="tab-pane fade" id="best" role="tabpanel" aria-labelledby="best-tab">
+      <% if !@team.jokes.empty? %>
+        <div class="golden-spoon">
+          1. The citation
+          <i class="fas fa-utensil-spoon golden"></i>
+            <% @joke_likes = @team.jokes.map do |joke| %>
+              <% joke.likes.count %>
+            <% end  %>
+            <% @golden_joke_index = @joke_likes.index { |x| x == @joke_likes.max } %>
+            <% @golden_joke = @team.jokes[@golden_joke_index]%>
+            <%= @golden_joke.description %>
+            <%= @golden_joke.teamuser.teamuser_pseudo %>
+          <% end %>
+        <div class="silver-spoon">
+          2. personne la plus citée
+          <i class="fas fa-utensil-spoon silver"></i>
+          <% @teamusers_jokes_count = @team.teamusers.map do |teamuser| %>
+            <% teamuser.jokes.count %>
+          <% end %>
+          <% @silver_teamuser_index = @teamusers_jokes_count.index { |x| x == @teamusers_jokes_count.max } %>
+          <% @silver_teamuser = @team.teamusers[@silver_teamuser_index]%>
+          <%= @silver_teamuser.teamuser_pseudo %>
+          <%= @silver_teamuser.jokes.count %> citations !!!
+        </div>
+        <div class="wooden-spoon">
+          3. dernière citation
+          <i class="fas fa-utensil-spoon wooden"></i>
+          <% @wooden_spoon = @team.jokes.last %>
+          <%= @wooden_spoon.description %> <%= @wooden_spoon.teamuser.teamuser_pseudo  %>
+        </div>
       </div>
     </div>
 
-
-    <div class="tab-pane fade" id="best" role="tabpanel" aria-labelledby="best-tab">
-      <h3>Ici le Best Of à venir !</h3>
-    </div>
-
+  </div>
+  <div class="joke-button-parent">
+    <%= link_to "+", new_joke_path(params: {team_id: params[:id]}), method: :get, id: "add-joke-button" %>
   </div>
 
 </div>
