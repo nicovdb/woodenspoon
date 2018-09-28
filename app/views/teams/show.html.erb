@@ -20,95 +20,134 @@
     </div>
   </div>
 
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item active">
-      <a class="nav-link" id="spoons-tab" data-toggle="tab" href="#spoons" role="tab" aria-controls="spoons" aria-selected="true" aria-expanded="true">Spoons</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" id="best-tab" data-toggle="tab" href="#best" role="tab" aria-controls="best" aria-selected="false">Best Of</a>
-    </li>
-  </ul>
+  <div id="myTab">
+    <ul  class="nav nav-pills">
+      <li class="active">
+        <a  href="#1b" data-toggle="tab">Spoons</a>
+      </li>
+      <li><a href="#2b" data-toggle="tab">Best Of</a>
+      </li>
+    </ul>
 
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active in" id="spoons" role="tabpanel" aria-labelledby="spoons-tab">
-      <div class="jokes">
-        <% @jokes.each do |joke| %>
-          <div class="joke">
-            <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
-            <div class="joke-person">
-              <% if !teamuser.user_id.nil? %>
-                <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
-              <% else %>
-                <%= image_tag "wooden-user", class:"joke-avatar" %>
-              <% end %>
-              <div class="joke-pseudo">
-                <%= teamuser.teamuser_pseudo %>
+    <div class="tab-content clearfix">
+      <div class="tab-pane active" id="1b">
+        <div class="jokes">
+          <% @jokes.each do |joke| %>
+            <div class="joke">
+              <% teamuser = Teamuser.find_by(id: joke.teamuser_id) %>
+              <div class="joke-person">
+                <% if !teamuser.user_id.nil? %>
+                  <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
+                <% else %>
+                  <%= image_tag "wooden-user", class:"joke-avatar" %>
+                <% end %>
+                <div class="joke-pseudo">
+                  <%= teamuser.teamuser_pseudo %>
+                </div>
+              </div>
+              <div class="joke-body">
+                <%= joke.description %>
+              </div>
+              <div class="joke-like">
+                <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
+                <% if @user_like.nil? %>
+                  <div id="heart-btn-<%= joke.id %>">
+                    <%= simple_form_for(@like, remote: true) do |f| %>
+                      <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
+                      <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
+                      <button type="submit"><i class="fas fa-heart"></i></button>
+                    <% end %>
+                  </div>
+                  <div id="like-nb-<%= joke.id %>">
+                    <%= joke.likes.count %>
+                  </div>
+                <% else %>
+                  <i class="fas fa-heart heart-red"></i> <%= joke.likes.size %>
+                <% end %>
               </div>
             </div>
-            <div class="joke-body">
-              <%= joke.description %>
-            </div>
-            <div class="joke-like">
-              <% @user_like = Like.find_by(user_id: current_user.id, joke_id: joke.id) %>
+          <% end %>
+        </div>
+      </div>
+      <div class="tab-pane" id="2b">
+        <div class="best-of">
+          <% if !@team.jokes.empty? %>
+            <div class="golden-spoon">
+              <% @joke_likes = @team.jokes.map do |joke| %>
+                <% joke.likes.count %>
+              <% end  %>
+              <% @golden_joke_index = @joke_likes.index { |x| x == @joke_likes.max } %>
+              <% @golden_joke = @team.jokes[@golden_joke_index]%>
 
-              <% if @user_like.nil? %>
-                <div id="heart-btn-<%= joke.id %>">
-                  <%= simple_form_for(@like, remote: true) do |f| %>
-                    <%= f.input :joke, as: :hidden, input_html: {value: joke.id}%>
-                    <%= f.input :team, as: :hidden, input_html: {value: params[:id]}%>
-                    <button type="submit"><i class="fas fa-heart"></i></button>
+              <div class="spoon-title">
+                <h2><i class="fas fa-utensil-spoon golden"></i> Golden Spoon </h2>
+                <h4>La citation la plus aimée : <%= @golden_joke.likes.count %> <i class="fas fa-heart heart-red"></i></h4>
+              </div>
+
+              <div class="spoon-content">
+                <div class="spoon-user">
+                  <% if !@golden_joke.teamuser.user_id.nil? %>
+                    <%= cl_image_tag @golden_joke.teamuser.user.photo, class:"joke-avatar" %>
+                  <% else %>
+                    <%= image_tag "wooden-user", class:"joke-avatar" %>
                   <% end %>
+                  <%= @golden_joke.teamuser.teamuser_pseudo %>
                 </div>
-
-                <div id="like-nb-<%= joke.id %>">
-                  <%= joke.likes.count %>
+                <div class="spoon-description">
+                  <%= @golden_joke.description %>
                 </div>
-
-              <% else %>
-
-                <i class="fas fa-heart heart-red"></i> <%= joke.likes.size %>
-              <% end %>
-
+              </div>
             </div>
-          </div>
-        <% end %>
+
+            <div class="silver-spoon">
+              <% @teamusers_jokes_count = @team.teamusers.map do |teamuser| %>
+                <% teamuser.jokes.count %>
+              <% end %>
+              <% @silver_teamuser_index = @teamusers_jokes_count.index { |x| x == @teamusers_jokes_count.max } %>
+              <% @silver_teamuser = @team.teamusers[@silver_teamuser_index]%>
+              <div class="spoon-title">
+                <h2><i class="fas fa-utensil-spoon silver"></i> Silver Spoon </h2>
+                <h4>La personne la plus citée : <%= @silver_teamuser.jokes.count %> citations ! </h4>
+              </div>
+              <div class="spoon-content">
+                <div class="spoon-user">
+                  <% if !@silver_teamuser.user_id.nil? %>
+                    <%= cl_image_tag @silver_teamuser.user.photo, class:"joke-avatar" %>
+                  <% else %>
+                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                  <% end %>
+                  <%= @silver_teamuser.teamuser_pseudo %>
+                </div>
+              </div>
+            </div>
+
+            <div class="wooden-spoon">
+              <% @wooden_spoon = @team.jokes.last %>
+              <div class="spoon-title">
+                <h2><i class="fas fa-utensil-spoon wooden"></i> Wooden Spoon </h2>
+                <h4>La dernière citation : <%= @wooden_spoon.created_at.strftime("%d/%m/%Y") %></h4>
+              </div>
+              <div class="spoon-content">
+                <div class="spoon-user">
+                  <% if !@wooden_spoon.teamuser.user_id.nil? %>
+                    <%= cl_image_tag @wooden_spoon.teamuser.user.photo, class:"joke-avatar" %>
+                  <% else %>
+                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                  <% end %>
+                  <%= @wooden_spoon.teamuser.teamuser_pseudo %>
+                </div>
+                <div class="spoon-description">
+                  <%= @wooden_spoon.description %>
+                </div>
+              </div>
+            </div>
+
+          <% end %>
+        </div>
       </div>
     </div>
-
-    <div class="tab-pane fade" id="best" role="tabpanel" aria-labelledby="best-tab">
-      <% if !@team.jokes.empty? %>
-        <div class="golden-spoon">
-          1. The citation
-          <i class="fas fa-utensil-spoon golden"></i>
-            <% @joke_likes = @team.jokes.map do |joke| %>
-              <% joke.likes.count %>
-            <% end  %>
-            <% @golden_joke_index = @joke_likes.index { |x| x == @joke_likes.max } %>
-            <% @golden_joke = @team.jokes[@golden_joke_index]%>
-            <%= @golden_joke.description %>
-            <%= @golden_joke.teamuser.teamuser_pseudo %>
-          <% end %>
-        <div class="silver-spoon">
-          2. personne la plus citée
-          <i class="fas fa-utensil-spoon silver"></i>
-          <% @teamusers_jokes_count = @team.teamusers.map do |teamuser| %>
-            <% teamuser.jokes.count %>
-          <% end %>
-          <% @silver_teamuser_index = @teamusers_jokes_count.index { |x| x == @teamusers_jokes_count.max } %>
-          <% @silver_teamuser = @team.teamusers[@silver_teamuser_index]%>
-          <%= @silver_teamuser.teamuser_pseudo %>
-          <%= @silver_teamuser.jokes.count %> citations !!!
-        </div>
-        <div class="wooden-spoon">
-          3. dernière citation
-          <i class="fas fa-utensil-spoon wooden"></i>
-          <% @wooden_spoon = @team.jokes.last %>
-          <%= @wooden_spoon.description %> <%= @wooden_spoon.teamuser.teamuser_pseudo  %>
-        </div>
-      </div>
-    </div>
-
   </div>
+
   <div class="joke-button-parent">
     <%= link_to "+", new_joke_path(params: {team_id: params[:id]}), method: :get, id: "add-joke-button" %>
   </div>
