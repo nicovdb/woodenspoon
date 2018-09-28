@@ -39,7 +39,7 @@
                 <% if !teamuser.user_id.nil? %>
                   <%= cl_image_tag teamuser.user.photo, class:"joke-avatar" %>
                 <% else %>
-                  <%= image_tag "wooden-user", class:"joke-avatar" %>
+                  <%= image_tag "wooden-user.jpg", class:"joke-avatar" %>
                 <% end %>
                 <div class="joke-pseudo">
                   <%= teamuser.teamuser_pseudo %>
@@ -89,7 +89,7 @@
                   <% if !@golden_joke.teamuser.user_id.nil? %>
                     <%= cl_image_tag @golden_joke.teamuser.user.photo, class:"joke-avatar" %>
                   <% else %>
-                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                    <%= image_tag "wooden-user.jpg", class:"joke-avatar" %>
                   <% end %>
                   <%= @golden_joke.teamuser.teamuser_pseudo %>
                 </div>
@@ -114,7 +114,7 @@
                   <% if !@silver_teamuser.user_id.nil? %>
                     <%= cl_image_tag @silver_teamuser.user.photo, class:"joke-avatar" %>
                   <% else %>
-                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                    <%= image_tag "wooden-user.jpg", class:"joke-avatar" %>
                   <% end %>
                   <%= @silver_teamuser.teamuser_pseudo %>
                 </div>
@@ -132,7 +132,7 @@
                   <% if !@wooden_spoon.teamuser.user_id.nil? %>
                     <%= cl_image_tag @wooden_spoon.teamuser.user.photo, class:"joke-avatar" %>
                   <% else %>
-                    <%= image_tag "wooden-user", class:"joke-avatar" %>
+                    <%= image_tag "wooden-user.jpg", class:"joke-avatar" %>
                   <% end %>
                   <%= @wooden_spoon.teamuser.teamuser_pseudo %>
                 </div>
