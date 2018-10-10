@@ -15,6 +15,7 @@
   flex-direction: column;
   align-items: center;
   width: 55px;
+  flex-shrink: 0;
 }
 
 .joke-avatar {
@@ -32,12 +33,12 @@
 }
 
 .joke-body {
-  flex-grow: 1;
   color: rgba(0,0,0,0.9);
   font-weight: lighter;
   font-size: 15px;
   padding-left: 15px;
   padding-right: 15px;
+  flex-grow: 1;
 }
 
 .joke-like {
@@ -48,6 +49,7 @@
   text-align: center;
   justify-content: right;
   align-items: center;
+  flex-shrink: 0;
 }
 
 
